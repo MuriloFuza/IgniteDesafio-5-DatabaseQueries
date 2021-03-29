@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="7"
+	 default-schema="public" default-owner="postgres">
+<database name="queries_challenge" encoding="UTF8" lc-collate="en_US.utf8" lc-ctype="en_US.utf8" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<extension name="uuid-ossp" cur-version="1.1">
+	<schema name="public"/>
+	<comment><![CDATA[generate universally unique identifiers (UUIDs)]]></comment>
+</extension>
+
+<sequence name="migrations_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="migrations" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="60"/>
+	<column name="id" not-null="true" sequence="public.migrations_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="timestamp" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<constraint name="PK_8c82d7f526340ab734260ea46be" type="pk-constr" table="public.migrations">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="users" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="400"/>
+	<column name="id" not-null="true" default-value="uuid_generate_v4()">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="first_name" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="last_name" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="created_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="updated_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="PK_a3ffb1c0c8416b9fc6f907b7433" type="pk-constr" table="public.users">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="games" layer="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="560" y="400"/>
+	<column name="id" not-null="true" default-value="uuid_generate_v4()">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="title" not-null="true">
+		<type name="character varying" length="0"/>
+	</column>
+	<column name="created_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="updated_at" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="PK_c9b16b62917b5595af982d66337" type="pk-constr" table="public.games">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="users_games_games" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="380" y="740"/>
+	<column name="usersId" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="gamesId" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="PK_cd4067d574477fd5c7693bc7872" type="pk-constr" table="public.users_games_games">
+		<columns names="usersId,gamesId" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="IDX_e5263d029d8644de829aae5c35" table="public.users_games_games"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="&quot;usersId&quot;"/>
+		</idxelement>
+</index>
+
+<index name="IDX_934b0d8f9d0084c97d3876ad32" table="public.users_games_games"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="&quot;gamesId&quot;"/>
+		</idxelement>
+</index>
+
+<table name="genres" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="400"/>
+	<column name="id" not-null="true" default-value="uuid_generate_v4()">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="description" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="genres_pk" type="pk-constr" table="public.genres">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="orders" layer="0" alias="carrinho de compras do usuário" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="60"/>
+	<column name="id" not-null="true" default-value="uuid_generate_v4()">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="value" not-null="true">
+		<type name="float" length="0"/>
+	</column>
+	<column name="created_at" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="updated_at" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="orders_pk" type="pk-constr" table="public.orders">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="users_has_one_orders" type="rel11" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#3b6850"
+	 src-table="public.orders"
+	 dst-table="public.users"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="orders_has_many_games" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#8ba13b"
+	 src-table="public.orders"
+	 dst-table="public.games"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="games_has_many_genres" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#aa0000"
+	 src-table="public.games"
+	 dst-table="public.genres"
+	 src-required="true" dst-required="false"/>
+
+<constraint name="FK_e5263d029d8644de829aae5c35a" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="public.users" table="public.users_games_games">
+	<columns names="usersId" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="FK_934b0d8f9d0084c97d3876ad32d" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="CASCADE" ref-table="public.games" table="public.users_games_games">
+	<columns names="gamesId" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_users_games_games_users" type="relfk" layer="0"
+	 custom-color="#54d8aa"
+	 src-table="public.users_games_games"
+	 dst-table="public.users" reference-fk="FK_e5263d029d8644de829aae5c35a"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_users_games_games_games" type="relfk" layer="0"
+	 custom-color="#0aa312"
+	 src-table="public.users_games_games"
+	 dst-table="public.games" reference-fk="FK_934b0d8f9d0084c97d3876ad32d"
+	 src-required="false" dst-required="true"/>
+
+<permission>
+	<object name="public" type="schema"/>
+	<roles names="postgres"/>
+	<privileges create="true" usage="true"/>
+</permission>
+<permission>
+	<object name="public" type="schema"/>
+	<privileges create="true" usage="true"/>
+</permission>
+</dbmodel>
